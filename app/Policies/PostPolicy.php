@@ -13,8 +13,7 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        // All authenticated users can view posts
-        return $user !== null;
+        return true; // All authenticated users can view jobs
     }
 
     /**
@@ -22,7 +21,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post): bool
     {
-        return $user !== null;
+        return true; // All authenticated users can view a job
     }
 
     /**

@@ -13,8 +13,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        // All authenticated users can view companies
-        return $user !== null;
+        return true;
     }
 
     /**
@@ -22,7 +21,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        return $user !== null;
+        return true;
     }
 
     /**
