@@ -33,10 +33,13 @@ class PostController extends Controller
     /**
      * Display a listing of the posts.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = $this->postService->getAllPosts();
-        return view('admin.posts.index', compact('posts'));
+        $filters = $request->only(['search', 'position_type', 'salary_min', 'salary_max', 'company', 'location']);
+        $posts = $this->postService->getAllPosts($filters);
+        $companies = $this->postService->getAllCompanies();
+
+        return view('frontend.posts.index', compact('posts', 'companies'));
     }
 
     /**

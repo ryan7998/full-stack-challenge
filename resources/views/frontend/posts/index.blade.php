@@ -11,10 +11,11 @@
                 @php
                     // Determine if the post is bookmarked by the user
                     $isBookmarked = false;
+                    $isAdmin = Auth::user()?->is_admin
                 @endphp
 
                 <!-- Job Card Component -->
-                <x-job-card :post="$post" :isBookmarked="$isBookmarked" />
+                <x-job-card :post="$post" :isBookmarked="$isBookmarked" :admin="$isAdmin"/>
             @empty
                 <div class="text-center text-gray-500">
                     No job postings found matching your criteria.
