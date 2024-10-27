@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Post;
+use App\Models\Company;
+use Illuminate\Support\Collection;
 use App\Services\Contracts\PostServiceInterface;
 use App\Repositories\Contracts\PostRepositoryInterface;
-use Illuminate\Support\Collection;
 
 class PostService implements PostServiceInterface
 {
@@ -46,5 +47,11 @@ class PostService implements PostServiceInterface
     public function filterPosts(array $filters): Collection
     {
         return $this->postRepository->filter($filters);
+    }
+
+
+    public function getAllCompanies(): \Illuminate\Support\Collection
+    {
+        return Company::all();
     }
 }

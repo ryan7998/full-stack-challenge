@@ -18,4 +18,6 @@ interface PostServiceInterface
     public function deletePost(int $id): bool;
 
     public function filterPosts(array $filters): Collection;
+
+    public function getAllCompanies(): Collection;
 }
