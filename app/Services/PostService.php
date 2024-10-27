@@ -7,6 +7,7 @@ use App\Models\Company;
 use Illuminate\Support\Collection;
 use App\Services\Contracts\PostServiceInterface;
 use App\Repositories\Contracts\PostRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PostService implements PostServiceInterface
 {
@@ -17,9 +18,9 @@ class PostService implements PostServiceInterface
         $this->postRepository = $postRepository;
     }
 
-    public function getAllPosts(): Collection
+    public function getAllPosts(array $filters): LengthAwarePaginator
     {
-        return $this->postRepository->getAll();
+        return $this->postRepository->getAll($filters);
     }
 
     public function getPostById(int $id): Post
@@ -53,5 +54,15 @@ class PostService implements PostServiceInterface
     public function getAllCompanies(): \Illuminate\Support\Collection
     {
         return Company::all();
+    }
+
+    public function getSimilarPosts(string $title, int $excludeId): \Illuminate\Support\Collection
+    {
+        return $this->postRepository->getSimilarPosts($title, $excludeId);
+    }
+
+    public function getPostsByIds(array $ids): \Illuminate\Support\Collection
+    {
+        return $this->postRepository->getPostsByIds($ids);
     }
 }

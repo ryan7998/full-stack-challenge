@@ -4,10 +4,11 @@ namespace App\Repositories\Contracts;
 
 use App\Models\Post;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PostRepositoryInterface
 {
-    public function getAll(): Collection;
+    public function getAll(array $filters): LengthAwarePaginator;
 
     public function findById(int $id): Post;
 
@@ -18,4 +19,8 @@ interface PostRepositoryInterface
     public function delete(Post $post): bool;
 
     public function filter(array $filters): Collection;
+
+    public function getSimilarPosts(string $title, int $excludeId): Collection;
+
+    public function getPostsByIds(array $ids): Collection;
 }

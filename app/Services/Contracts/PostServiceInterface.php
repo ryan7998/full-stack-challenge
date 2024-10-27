@@ -4,10 +4,12 @@ namespace App\Services\Contracts;
 
 use App\Models\Post;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PostServiceInterface
 {
-    public function getAllPosts(): Collection;
+    public function getAllPosts(array $filters): LengthAwarePaginator;
+
 
     public function getPostById(int $id): Post;
 
@@ -20,4 +22,8 @@ interface PostServiceInterface
     public function filterPosts(array $filters): Collection;
 
     public function getAllCompanies(): Collection;
+
+    public function getSimilarPosts(string $title, int $excludeId): \Illuminate\Support\Collection;
+
+    public function getPostsByIds(array $ids): \Illuminate\Support\Collection;
 }
