@@ -35,10 +35,30 @@
             {{-- <main>
                 {{ $slot }}
             </main> --}}
+        
+            <!-- Flash Messages -->
             @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
+            <div x-data="{ show: true }" x-show="show" class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg @click="show = false" class="fill-current h-6 w-6 text-green-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path d="M14.348 14.849a1.2 1.2 0 001.697-1.697l-5.651-5.651 5.651-5.651a1.2 1.2 0 00-1.697-1.697L8 6.653 2.349.999a1.2 1.2 0 10-1.697 1.697L6.653 8l-5.651 5.651a1.2 1.2 0 001.697 1.697L8 9.347l5.651 5.651z"/>
+                    </svg>
+                </span>
+            </div>
+            @endif 
+
+            @if(session('error'))
+            <div x-data="{ show: true }" x-show="show" class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('error') }}</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg @click="show = false" class="fill-current h-6 w-6 text-red-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path d="M14.348 14.849a1.2 1.2 0 001.697-1.697l-5.651-5.651 5.651-5.651a1.2 1.2 0 00-1.697-1.697L8 6.653 2.349.999a1.2 1.2 0 10-1.697 1.697L6.653 8l-5.651 5.651a1.2 1.2 0 001.697 1.697L8 9.347l5.651 5.651z"/>
+                    </svg>
+                </span>
+            </div>
             @endif
     
             @yield('content')

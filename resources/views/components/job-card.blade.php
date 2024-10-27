@@ -42,7 +42,7 @@
         </span>
     </div>
     <div class="mt-4 flex justify-between items-center">
-        <a href="{{ route('frontend.posts.show', $post->id) }}" class="text-blue-500 hover:underline">
+        <a href="{{ route('frontend.posts.show', $post->id) }}" class="text-blue-500 hover:text-blue-700 ">
             View Details
         </a>
 
