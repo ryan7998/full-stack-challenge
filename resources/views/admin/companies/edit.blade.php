@@ -1,5 +1,3 @@
-<!-- resources/views/admin/companies/edit.blade.php -->
-
 @extends('admin.layouts.app')
 
 @section('content')

@@ -1,5 +1,3 @@
-<!-- resources/views/components/cards/company-card.blade.php -->
-
 @props(['company', 'admin' => false])
 
 <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative">
@@ -40,13 +38,17 @@
     </p>
 
     <!-- Actions -->
-    <div class="flex justify-center space-x-4">
+    <div class="flex justify-between items-center">
         <a href="{{ route('frontend.companies.show', $company->id) }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
             View Details
         </a>
 
         @if($admin)
-            <a href="{{ route('admin.companies.edit', $company->id) }}" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
+        <div class="flex space-x-2">
+            <a href="{{ route('admin.companies.edit', $company->id) }}" class="text-yellow-500 hover:text-yellow-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-5M18.364 2.636a9 9 0 11-12.728 12.728A9 9 0 0118.364 2.636z" />
+                </svg>
                 Edit
             </a>
 
@@ -54,8 +56,11 @@
             <button
                 x-data
                 @click="$dispatch('open-modal', 'delete-company-{{ $company->id }}')"
-                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                class="text-red-500 hover:text-red-700"
             >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 Delete
             </button>
 
@@ -80,6 +85,7 @@
                     </div>
                 </div>
             </x-modal>
+        </div>
         @endif
     </div>
 </div>

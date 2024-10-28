@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+@php
+    // Determine if the post is bookmarked by the user
+    $isBookmarked = false;
+    $admin = Auth::user()?->is_admin
+@endphp
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <!-- Company Details -->
@@ -30,6 +34,51 @@
                 {{ $company->description }}
             </p>
         </div>
+
+        @if($admin)
+        <div class="flex space-x-2 justify-center">
+            <a href="{{ route('admin.companies.edit', $company->id) }}" class="text-yellow-500 hover:text-yellow-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-5M18.364 2.636a9 9 0 11-12.728 12.728A9 9 0 0118.364 2.636z" />
+                </svg>
+                Edit
+            </a>
+
+            <!-- Delete Button Trigger -->
+            <button
+                x-data
+                @click="$dispatch('open-modal', 'delete-company-{{ $company->id }}')"
+                class="text-red-500 hover:text-red-700"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Delete
+            </button>
+
+            <!-- Delete Confirmation Modal -->
+            <x-modal name="delete-company-{{ $company->id }}" :show="false" maxWidth="sm">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">Confirm Deletion</h2>
+                    <p class="mb-4">Are you sure you want to delete the company "{{ $company->name }}"?</p>
+                    <div class="flex justify-end space-x-2">
+                        <button 
+                            x-data
+                            @click="$dispatch('close-modal', 'delete-company-{{ $company->id }}')" 
+                            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                        >
+                            Cancel
+                        </button>
+                        <form action="{{ route('admin.companies.destroy', $company->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </x-modal>
+        </div>
+        @endif
 
         <!-- Associated Job Posts -->
         <div>
