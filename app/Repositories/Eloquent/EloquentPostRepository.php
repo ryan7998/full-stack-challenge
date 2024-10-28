@@ -38,7 +38,7 @@ class EloquentPostRepository implements PostRepositoryInterface
             $query->where('location', 'LIKE', '%' . $filters['location'] . '%');
         }
 
-        return $query->paginate(20)->withQueryString();
+        return $query->orderBy('created_at', 'desc')->paginate(20)->withQueryString();
     }
 
     public function findById(int $id): Post
