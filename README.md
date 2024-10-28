@@ -1,45 +1,65 @@
 # WiseJobs
 
-**WiseJobs** is a comprehensive job portal built with Laravel, designed to connect job seekers with employers seamlessly. Whether you're looking to post job listings, search for your next career opportunity, or manage applications, WiseJobs provides a robust platform to meet your needs.
+**WiseJobs** is a sophisticated job portal built with Laravel, designed to seamlessly connect job seekers with employers. This platform leverages advanced backend architecture patterns and modern frontend technologies to deliver a robust, scalable, and user-friendly experience.
 
-## Table of Contents
-
--   [Features](#features)
--   [Demo](#demo)
--   [Prerequisites](#prerequisites)
--   [Installation](#installation)
--   [Configuration](#configuration)
--   [Running the Application](#running-the-application)
--   [Testing](#testing)
--   [Deployment](#deployment)
--   [Contributing](#contributing)
--   [License](#license)
--   [Contact](#contact)
+Admin: admin@wisejobs.com
+Password: password123
+(after seeding the db)
 
 ## Features
 
--   **User Authentication:** Secure login and registration for job seekers and employers.
--   **Job Listings:** Employers can create, edit, and delete job postings.
--   **Job Search:** Job seekers can search and filter job listings based on various criteria.
--   **Application Management:** Employers can manage applications received for their job postings.
--   **Responsive Design:** Optimized for desktops, tablets, and mobile devices.
--   **Admin Dashboard:** Manage users, job listings, and site settings.
+- **User Authentication:** Secure login and registration for job seekers and employers. 
+- **Job Listings:** Employers can create, edit, and delete job postings.
+- **Advanced Search & Filtering:** Job seekers can search and filter job listings based on various criteria.
+- **Application Management:** Employers can manage companies and their job postings.
+- **Responsive Design:** Optimized for desktops, tablets, and mobile devices.
+- **Admin Dashboard:** Comprehensive dashboard to manage job listings, and companies.
 
-## Demo
+## Architecture
 
-Not Available yet.
+WiseJobs employs a clean and maintainable architecture by adhering to SOLID principles and utilizing design patterns that promote separation of concerns and scalability.
 
-## Prerequisites
+### Backend
 
-Before you begin, ensure you have met the following requirements:
+#### Repository Pattern
 
--   **Operating System:** Linux, macOS, or Windows
--   **Web Server:** Apache or Nginx
--   **PHP:** Version 8.0 or higher
--   **Database:** MySQL or MariaDB
--   **Composer:** Dependency Manager for PHP
--   **Node.js and NPM:** For frontend asset compilation
--   **Git:** Version control system
+The **Repository Pattern** is implemented to abstract the data layer, providing a clean API for data access and manipulation. This promotes loose coupling and makes it easier to switch data sources or implement caching mechanisms without affecting the business logic.
+
+#### Service Classes
+
+**Service Classes** encapsulate the business logic of the application, acting as an intermediary between controllers and repositories. This separation ensures that controllers remain slim and focused solely on handling HTTP requests and responses.
+
+#### Interfaces
+
+Utilizing **Interfaces** for repositories and services promotes dependency inversion, allowing for easier testing and flexibility in swapping implementations.
+
+- **Benefits:**
+  - Facilitates mocking during unit testing.
+  - Enhances code maintainability and scalability.
+  - Encourages adherence to contracts, ensuring consistency across implementations.
+
+### Frontend
+
+#### Blade Templates
+
+WiseJobs utilizes **Blade**, Laravel's powerful templating engine, to build dynamic and reusable frontend components. Blade's syntax allows for clean and readable code, making it easier to maintain and extend the frontend.
+
+#### Alpine.js
+
+For interactive UI components, **Alpine.js** is integrated with Blade templates. Alpine.js provides lightweight JavaScript functionality.
+
+## Technologies & Methodologies
+
+- **Laravel 10.x:** Robust PHP framework for building scalable web applications.
+- **PHP 8.0+:** Modern PHP version with enhanced performance and features.
+- **MySQL/MariaDB:** Reliable relational database management systems.
+- **Composer:** Dependency management for PHP.
+- **Node.js & NPM:** Managing frontend dependencies and build tools.
+- **Alpine.js:** Lightweight JavaScript framework for interactive UI components.
+- **Blade:** Laravel's templating engine for building dynamic views.
+- **Repository Pattern:** Abstracts data layer for cleaner architecture.
+- **Service-Oriented Architecture:** Encapsulates business logic within service classes.
+- **SOLID Principles:** Ensures maintainable and scalable codebase.
 
 ## Installation
 
@@ -48,7 +68,7 @@ Follow these steps to set up WiseJobs on your local machine for development and 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/ryan7998/full-stack-challenge.git
+git clone https://github.com/your-username/wisejobs.git
 cd wisejobs
 ```
 
@@ -93,48 +113,17 @@ php artisan key:generate
 
 Open the `.env` file and set your database credentials and other configurations:
 
-```env
-APP_NAME=WiseJobs
-APP_ENV=local
-APP_KEY=base64:YourGeneratedKey
-APP_DEBUG=true
-APP_URL=http://localhost
-
-LOG_CHANNEL=stack
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=wisejobs
-DB_USERNAME=your_db_username
-DB_PASSWORD=your_db_password
-
-```
-
 ### 7. Set Up the Database
 
 1. **Create a Database:**
 
-    Log into your MySQL or MariaDB server and create a new database:
-
-    ```sql
-    CREATE DATABASE wisejobs;
-    CREATE USER 'wisejobsuser'@'localhost' IDENTIFIED BY 'your_strong_password';
-    GRANT ALL PRIVILEGES ON wisejobs.* TO 'wisejobsuser'@'localhost';
-    FLUSH PRIVILEGES;
-    ```
+   Log into your MySQL or MariaDB server and create a new database:
 
 2. **Run Migrations and Seeders:**
 
-    ```bash
-    php artisan migrate --seed
-    ```
-
-### 8. Configure Storage Links
-
-```bash
-php artisan storage:link
-```
+   ```bash
+   php artisan migrate --seed
+   ```
 
 ## Running the Application
 
@@ -145,3 +134,7 @@ php artisan serve
 ```
 
 Visit [http://localhost:8000](http://localhost:8000) in your browser to see the application in action.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
