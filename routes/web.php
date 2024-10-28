@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Frontend\PostController as FrontendPostController;
@@ -18,7 +19,7 @@ Route::middleware(['auth', AdminMiddleware::class])
     ->group(function () {
 
         // Dashboard
-        // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Posts CRUD
         Route::resource('posts', AdminPostController::class);
@@ -41,7 +42,7 @@ Route::get('/companies/{company}', [FrontendCompanyController::class, 'show'])->
 Route::get('/search', [FrontendPostController::class, 'search'])->name('posts.search');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

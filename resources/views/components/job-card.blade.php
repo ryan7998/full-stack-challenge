@@ -1,21 +1,6 @@
 @props(['post', 'isBookmarked', 'admin' => false])
 
 <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 relative">
-    <!-- Bookmark Button (Only for Frontend) -->
-    @unless($admin)
-        <button
-            data-bookmark-id="{{ $post->id }}"
-            onclick="toggleBookmark({{ $post->id }})"
-            class="top-4 right-4 text-gray-400 hover:text-yellow-500 focus:outline-none"
-            title="Bookmark this job"
-        >
-            <!-- Bookmark Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="{{ $isBookmarked ? 'currentColor' : 'none' }}" stroke="currentColor" viewBox="0 0 20 20">
-                <path d="M5 3a2 2 0 00-2 2v14l7-3 7 3V5a2 2 0 00-2-2H5z" />
-            </svg>
-        </button>
-    @endunless
-
     <!-- Job Details -->
     <h2 class="text-2xl font-bold mb-2">{{ $post->title }}</h2>
     <div class="flex items-center text-gray-600 mb-4">
