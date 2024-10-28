@@ -13,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::withCount('posts')->paginate(10); // Paginate for performance
+        $companies = Company::withCount('posts')->paginate(9); // Paginate for performance
         return view('frontend.companies.index', compact('companies'));
     }
 

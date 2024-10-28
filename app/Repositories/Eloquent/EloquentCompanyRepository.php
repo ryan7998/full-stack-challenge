@@ -19,7 +19,7 @@ class EloquentCompanyRepository implements CompanyRepositoryInterface
 
         // Add more filters as needed...
 
-        return Company::paginate(10)->withQueryString();
+        return Company::withCount('posts')->paginate(9)->withQueryString();
     }
 
     public function findById(int $id): Company

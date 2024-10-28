@@ -22,9 +22,9 @@ class CompanyStoreRequest extends FormRequest
     {
         return [
             'name'        => 'required|string|max:255|unique:companies,name',
+            'email'       => 'required|email|unique:companies,email',
             'description' => 'required|string',
             'website'     => 'nullable|url|max:255',
-            // Add more fields if necessary
         ];
     }
 }

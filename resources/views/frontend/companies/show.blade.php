@@ -33,7 +33,7 @@
 
         <!-- Associated Job Posts -->
         <div>
-            <h2 class="text-2xl font-bold mb-6">Job Openings at {{ $company->name }}</h2>
+            <h2 class="text-xl mb-6"><b>{{ $company->posts->count() }}</b> Job Openings at {{ $company->name }}</h2>
 
             @if( $company->posts->count() > 0)
                 <div class="grid grid-cols-1 gap-6">

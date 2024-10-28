@@ -55,17 +55,6 @@ class CompanyController extends Controller
      */
     public function store(CompanyStoreRequest  $request)
     {
-        // $validated = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:companies,email',
-        //     'website' => 'nullable|url',
-        //     'description' => 'nullable|string',
-        // ]);
-
-        // $this->companyService->createCompany($validated);
-
-        // return redirect()->route('admin.companies.index')->with('success', 'Company created successfully.');
-
         $validated = $request->validated();
 
         Company::create($validated);
@@ -94,16 +83,6 @@ class CompanyController extends Controller
      */
     public function update(CompanyUpdateRequest $request, Company $company)
     {
-        //     $validated = $request->validate([
-        //         'name' => 'required|string|max:255',
-        //         'email' => 'required|email|unique:companies,email,' . $company->id,
-        //         'website' => 'nullable|url',
-        //         'description' => 'nullable|string',
-        //     ]);
-
-        //     $this->companyService->updateCompany($company->id, $validated);
-
-        //     return redirect()->route('admin.companies.index')->with('success', 'Company updated successfully.');
 
         $validated = $request->validated();
 
