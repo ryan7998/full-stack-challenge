@@ -8,10 +8,10 @@
                 name="search"
                 x-model="search"
                 placeholder="Search for jobs..."
-                class="w-full md:w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full md:w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800"
             />
 
-            <button type="submit" @click="applyFilters" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            <button type="submit" @click="applyFilters" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 ">
                 Search
             </button>
         </form>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @php
     // Determine if the post is bookmarked by the user
     $isBookmarked = false;
