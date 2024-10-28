@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Company;
+use App\Http\Requests\CompanyStoreRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\AdminMiddleware;
@@ -33,9 +35,10 @@ class CompanyController extends Controller
     /**
      * Display a listing of the companies.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = $this->companyService->getAllCompanies();
+        $filters = $request->all();
+        $companies = $this->companyService->getAllCompanies($filters);
         return view('admin.companies.index', compact('companies'));
     }
 
@@ -50,16 +53,22 @@ class CompanyController extends Controller
     /**
      * Store a newly created company in storage.
      */
-    public function store(Request $request)
+    public function store(CompanyStoreRequest  $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:companies,email',
-            'website' => 'nullable|url',
-            'description' => 'nullable|string',
-        ]);
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:companies,email',
+        //     'website' => 'nullable|url',
+        //     'description' => 'nullable|string',
+        // ]);
 
-        $this->companyService->createCompany($validated);
+        // $this->companyService->createCompany($validated);
+
+        // return redirect()->route('admin.companies.index')->with('success', 'Company created successfully.');
+
+        $validated = $request->validated();
+
+        Company::create($validated);
 
         return redirect()->route('admin.companies.index')->with('success', 'Company created successfully.');
     }
@@ -83,16 +92,22 @@ class CompanyController extends Controller
     /**
      * Update the specified company in storage.
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyUpdateRequest $request, Company $company)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:companies,email,' . $company->id,
-            'website' => 'nullable|url',
-            'description' => 'nullable|string',
-        ]);
+        //     $validated = $request->validate([
+        //         'name' => 'required|string|max:255',
+        //         'email' => 'required|email|unique:companies,email,' . $company->id,
+        //         'website' => 'nullable|url',
+        //         'description' => 'nullable|string',
+        //     ]);
 
-        $this->companyService->updateCompany($company->id, $validated);
+        //     $this->companyService->updateCompany($company->id, $validated);
+
+        //     return redirect()->route('admin.companies.index')->with('success', 'Company updated successfully.');
+
+        $validated = $request->validated();
+
+        $company->update($validated);
 
         return redirect()->route('admin.companies.index')->with('success', 'Company updated successfully.');
     }
@@ -102,7 +117,13 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $this->companyService->deleteCompany($company->id);
-        return redirect()->route('admin.companies.index')->with('success', 'Company deleted successfully.');
+        // $this->companyService->deleteCompany($company->id);
+        // return redirect()->route('admin.companies.index')->with('success', 'Company deleted successfully.');
+        try {
+            $this->companyService->deleteCompany($company->id);
+            return redirect()->route('admin.companies.index')->with('success', 'Company deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.companies.index')->with('error', $e->getMessage());
+        }
     }
 }

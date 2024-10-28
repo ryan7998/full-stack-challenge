@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Requests\PostStoreRequest;
 use App\Services\Contracts\PostServiceInterface;
 use App\Services\Contracts\CompanyServiceInterface;
 
@@ -26,7 +27,6 @@ class PostController extends Controller
 
     public function __construct(PostServiceInterface $postService)
     {
-        // $this->middleware('auth');
         $this->postService = $postService;
     }
 
@@ -54,19 +54,9 @@ class PostController extends Controller
     /**
      * Store a newly created post in storage.
      */
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        $validated = $request->validate([
-            'company_id' => 'required|exists:companies,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'position_type' => 'required|in:remote,in-person',
-            'salary' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-        ]);
-
-        $this->postService->createPost($validated);
-
+        $this->postService->createPost($request->validated());
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
     }
 
@@ -90,19 +80,9 @@ class PostController extends Controller
     /**
      * Update the specified post in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostStoreRequest $request, Post $post)
     {
-        $validated = $request->validate([
-            'company_id' => 'required|exists:companies,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'position_type' => 'required|in:remote,in-person',
-            'salary' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-        ]);
-
-        $this->postService->updatePost($post->id, $validated);
-
+        $this->postService->updatePost($post->id, $request->validated());
         return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }
 
@@ -111,7 +91,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->postService->deletePost($post->id);
-        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
+        try {
+            $post->delete();
+            return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.posts.index')->with('error', 'Failed to delete the post.');
+        }
     }
 }

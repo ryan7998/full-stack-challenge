@@ -3,14 +3,23 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Company;
-use App\Repositories\Contracts\CompanyRepositoryInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Repositories\Contracts\CompanyRepositoryInterface;
 
 class EloquentCompanyRepository implements CompanyRepositoryInterface
 {
-    public function getAll(): Collection
+    public function getAll(array $filters): LengthAwarePaginator
     {
-        return Company::withCount('posts')->get();
+        // Apply filters if any
+        if (isset($filters['search']) && !empty($filters['search'])) {
+            $search = $filters['search'];
+            Company::where('name', 'LIKE', '%' . $search . '%')->with('posts');
+        }
+
+        // Add more filters as needed...
+
+        return Company::paginate(10)->withQueryString();
     }
 
     public function findById(int $id): Company

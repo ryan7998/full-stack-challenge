@@ -4,10 +4,11 @@ namespace App\Repositories\Contracts;
 
 use App\Models\Company;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface CompanyRepositoryInterface
 {
-    public function getAll(): Collection;
+    public function getAll(array $filters): LengthAwarePaginator;
 
     public function findById(int $id): Company;
 

@@ -4,10 +4,11 @@ namespace App\Services\Contracts;
 
 use App\Models\Company;
 use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface CompanyServiceInterface
 {
-    public function getAllCompanies(): Collection;
+    public function getAllCompanies(array $filters): LengthAwarePaginator;
 
     public function getCompanyById(int $id): Company;
 

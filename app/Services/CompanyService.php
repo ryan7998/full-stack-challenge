@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Company;
-use App\Services\Contracts\CompanyServiceInterface;
-use App\Repositories\Contracts\CompanyRepositoryInterface;
 use Illuminate\Support\Collection;
+use App\Services\Contracts\CompanyServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Repositories\Contracts\CompanyRepositoryInterface;
 
 class CompanyService implements CompanyServiceInterface
 {
@@ -16,9 +17,9 @@ class CompanyService implements CompanyServiceInterface
         $this->companyRepository = $companyRepository;
     }
 
-    public function getAllCompanies(): Collection
+    public function getAllCompanies(array $filters): LengthAwarePaginator
     {
-        return $this->companyRepository->getAll();
+        return $this->companyRepository->getAll($filters);
     }
 
     public function getCompanyById(int $id): Company
