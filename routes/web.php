@@ -33,7 +33,7 @@ Route::get('/', [FrontendPostController::class, 'index'])->name('frontend.posts.
 // View Single Job Post
 Route::get('/posts/{post}', [FrontendPostController::class, 'show'])->name('frontend.posts.show');
 
-// Browse Companies (Optional: If you want users to view companies)
+// Browse Companies
 Route::get('/companies', [FrontendCompanyController::class, 'index'])->name('frontend.companies.index');
 Route::get('/companies/{company}', [FrontendCompanyController::class, 'show'])->name('frontend.companies.show');
 
