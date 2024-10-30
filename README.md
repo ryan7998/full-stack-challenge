@@ -1,4 +1,5 @@
 # WiseJobs
+**live: https://wisejobs.onthis.website/**
 
 **WiseJobs** is a sophisticated job portal built with Laravel, designed to seamlessly connect job seekers with employers. This platform leverages advanced backend architecture patterns and modern frontend technologies to deliver a robust, scalable, and user-friendly experience.
 
